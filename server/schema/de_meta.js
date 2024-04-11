@@ -1,38 +1,44 @@
-/* jshint indent: 2 */
-
+const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
-    'de_meta',
-    {
-      id: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      data_id: {
-        type: DataTypes.CHAR(50),
-        allowNull: true
-      },
-      b_data_id: {
-        type: DataTypes.CHAR(50),
-        allowNull: true
-      },
-      description: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-      },
-      hint: {
-        type: DataTypes.STRING(512),
-        allowNull: true
-      },
-      value: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-      }
+  return sequelize.define('de_meta', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     },
-    {
-      tableName: 'de_meta'
+    b_data_id: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    data_id: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    hint: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    value: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     }
-  )
-}
+  }, {
+    sequelize,
+    tableName: 'de_meta',
+    timestamps: false,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "id" },
+        ]
+      },
+    ]
+  });
+};

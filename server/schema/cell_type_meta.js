@@ -1,30 +1,36 @@
-/* jshint indent: 2 */
-
+const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define(
-    'cell_type_meta',
-    {
-      id: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false,
-        primaryKey: true,
-        autoIncrement: true
-      },
-      data_id: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-      },
-      cell_type: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-      },
-      subcluster: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-      }
+  return sequelize.define('cell_type_meta', {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     },
-    {
-      tableName: 'cell_type_meta'
+    cell_type: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    data_id: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    subcluster: {
+      type: DataTypes.STRING(255),
+      allowNull: true
     }
-  )
-}
+  }, {
+    sequelize,
+    tableName: 'cell_type_meta',
+    timestamps: false,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "id" },
+        ]
+      },
+    ]
+  });
+};
